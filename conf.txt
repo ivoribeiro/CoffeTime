@@ -1,0 +1,8 @@
+logPath=.log
+coffe;0.40;100
+choco;0.35;50
+descafe;0.40;100
+tea;0.35;50
+cups;0;300
+spoon;0;300
+sugar;0;500
