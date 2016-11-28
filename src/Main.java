@@ -39,7 +39,7 @@ public class Main extends Thread implements Contract {
 
 
     public void run() {
-
+        //
         this.__logSemaphore = new Semaphore(1);
         try {
             this.__logSemaphore.acquire();
@@ -74,7 +74,6 @@ public class Main extends Thread implements Contract {
         this.__screen.processMessage("Processing " + money + " to slot ....");
         this.__states.addToSlot(money);
         this.__screen.processMessage("Credit: " + this.__states.onSlot());
-
     }
 
     /**
