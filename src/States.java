@@ -22,14 +22,14 @@ public class States {
         this.__onSugar = 0;
 
         //------------------------------------------------------------------Load default values from configs
-        this.__choco = new Product(configs.getChoco().price(), configs.getChoco().quantity());
-        this.__coffe = new Product(configs.getCoffe().price(), configs.getCoffe().quantity());
-        this.__decaffeinated = new Product(configs.getDescafe().price(), configs.getDescafe().quantity());
-        this.__tea = new Product(configs.getTea().price(), configs.getTea().quantity());
+        this.__choco = new Product(configs.getChoco().name(),configs.getChoco().price(), configs.getChoco().quantity());
+        this.__coffe = new Product(configs.getCoffe().name(),configs.getCoffe().price(), configs.getCoffe().quantity());
+        this.__decaffeinated = new Product(configs.getDescafe().name(),configs.getDescafe().price(), configs.getDescafe().quantity());
+        this.__tea = new Product(configs.getTea().name(),configs.getTea().price(), configs.getTea().quantity());
 
-        this.__sugar = new Product(configs.getSugar().price(), configs.getSugar().quantity());
-        this.__spoon = new Product(configs.getSpoon().price(), configs.getSpoon().quantity());
-        this.__cup = new Product(configs.getCup().price(), configs.getCup().quantity());
+        this.__sugar = new Product(configs.getSugar().name(),configs.getSugar().price(), configs.getSugar().quantity());
+        this.__spoon = new Product(configs.getSpoon().name(),configs.getSpoon().price(), configs.getSpoon().quantity());
+        this.__cup = new Product(configs.getCup().name(),configs.getCup().price(), configs.getCup().quantity());
         //--------------------------------------------------------------------------------------------------
     }
 

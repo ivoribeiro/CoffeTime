@@ -1,7 +1,3 @@
-import javax.swing.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,7 +34,6 @@ public class Log extends Thread {
     }
 
     public Log(String logPath) {
-
         this.__logQueue = new LinkedBlockingQueue<String>();
         this.__writer = new FileIO(logPath);
         this.__logSemaphore = new Semaphore(1);
@@ -46,7 +41,6 @@ public class Log extends Thread {
     }
 
     public void run() {
-
         this.setName("Log Thread");
         this.sleep();
         this.saveLogs();

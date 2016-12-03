@@ -12,26 +12,21 @@ public class Main extends Thread implements Contract {
     //Thread of log module
     private Log __log;
 
-    private Semaphore __logSemaphore;
+    private Semaphore __startLogSemaphore;
+    private Semaphore __startScreenSemaphore;
+
     private Keyboard __keyboard;
     private Slot __slot;
 
     public Semaphore getLogSemaphore() {
-        return this.__logSemaphore;
+        return this.__startLogSemaphore;
     }
 
     public static void main(String args[]) throws InterruptedException {
 
 
-        Semaphore screenSemaphore = new Semaphore(1);
-        Semaphore slotSemaphore = new Semaphore(1);
-        Semaphore keyboardSemaphore = new Semaphore(1);
-        Semaphore mainSemaphore = new Semaphore(1);
-
-
         Main main = new Main();
         main.start();
-
 
 
         System.out.println("Fim das threads");
@@ -39,17 +34,23 @@ public class Main extends Thread implements Contract {
 
 
     public void run() {
-        //
-        this.__logSemaphore = new Semaphore(1);
+        //instanciar semaforos para controlar os tempos das execuções das threads
+        this.__startLogSemaphore = new Semaphore(1);
+        this.__startScreenSemaphore = new Semaphore(1);
+
         try {
-            this.__logSemaphore.acquire();
+            this.__startLogSemaphore.acquire();
+            this.__startScreenSemaphore.acquire();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        //configs class
         Configs configs = new Configs();
+        //states class
         this.__states = new States(configs);
 
+        //instantiate threads
         this.__log = new Log(configs.getLog());
         this.__screen = new Screen(this);
         this.__keyboard = new Keyboard(this);
@@ -57,15 +58,19 @@ public class Main extends Thread implements Contract {
 
         //start the threads
         this.__log.start();
-        this.__logSemaphore.release();
+        //release semaphore , now all the threads can use logs
+        this.__startLogSemaphore.release();
         this.__screen.start();
+        //release semaphore , now all the threads can use screen
+        this.__startScreenSemaphore.release();
+
         this.__slot.start();
         this.__keyboard.start();
     }
 
 
     /**
-     * Mehtod of contract interface to slot communicate with the main
+     * Method of contract interface to slot communicate with the main
      * adds the value inserted in slot to the slot state value
      *
      * @param money
@@ -89,10 +94,12 @@ public class Main extends Thread implements Contract {
             this.__screen.processMessage("Processing " + drink + " ...");
             //get the exchange value
             double exchange = this.exchange(drink);
-            if (exchange != 0) this.__screen.processMessage("Troco:" + exchange);
+
+            if (exchange != 0) this.__screen.processMessage("Troco:" + String.format("%.2f", exchange));
 
             //reset the slot state value
             this.__states.resetSlot();
+            //this.__screen.processMessage("Retire a bebida");
         } else this.__screen.processMessage("Sem crédito suficiente, preço:" + this.__states.getProduct(drink).price());
 
     }
@@ -128,8 +135,9 @@ public class Main extends Thread implements Contract {
      * @param drink
      * @return
      */
-    public double exchange(String drink) {
-        return this.__states.onSlot() - this.__states.getProduct(drink).price();
+    public Double exchange(String drink) {
+        double exchange = this.__states.onSlot() - this.__states.getProduct(drink).price();
+        return exchange;
     }
 
 }

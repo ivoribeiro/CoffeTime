@@ -32,19 +32,27 @@ public class Configs {
                 String[] productConf = line.split(productSplitBy);
                 switch (productConf[0]) {
                     case "choco":
-                        this.__choco = new Product(Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        this.__choco = new Product(productConf[0], Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        break;
                     case "coffe":
-                        this.__coffe = new Product(Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        this.__coffe = new Product(productConf[0], Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        break;
                     case "tea":
-                        this.__tea = new Product(Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        this.__tea = new Product(productConf[0], Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        break;
                     case "desca":
-                        this.__descafe = new Product(Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        this.__descafe = new Product(productConf[0], Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        break;
                     case "cup":
-                        this.__cup = new Product(Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        this.__cup = new Product(productConf[0], Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        break;
                     case "spoon":
-                        this.__spoon = new Product(Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        this.__spoon = new Product(productConf[0], Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        break;
                     case "sugar":
-                        this.__sugar = new Product(Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        this.__sugar = new Product(productConf[0], Double.parseDouble(productConf[1]), Integer.parseInt(productConf[2]));
+                        break;
+
                 }
             }
 
