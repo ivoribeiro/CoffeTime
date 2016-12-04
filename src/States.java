@@ -1,19 +1,11 @@
-/**
- * Created by ivoribeiro on 17-11-2016.
- */
-public class States {
+import java.util.HashMap;
+
+class States {
 
     private double __onSlot;
-    private int __onSugar;
+    private final int __onSugar;
 
-    private Product __sugar;
-    private Product __cup;
-    private Product __spoon;
-
-    private Product __coffe;
-    private Product __choco;
-    private Product __decaffeinated;
-    private Product __tea;
+    private HashMap<String, Product> products;
 
 
     public States(Configs configs) {
@@ -21,15 +13,17 @@ public class States {
         this.__onSlot = 0;
         this.__onSugar = 0;
 
-        //------------------------------------------------------------------Load default values from configs
-        this.__choco = new Product(configs.getChoco().name(),configs.getChoco().price(), configs.getChoco().quantity());
-        this.__coffe = new Product(configs.getCoffe().name(),configs.getCoffe().price(), configs.getCoffe().quantity());
-        this.__decaffeinated = new Product(configs.getDescafe().name(),configs.getDescafe().price(), configs.getDescafe().quantity());
-        this.__tea = new Product(configs.getTea().name(),configs.getTea().price(), configs.getTea().quantity());
+        this.products = new HashMap<>();
 
-        this.__sugar = new Product(configs.getSugar().name(),configs.getSugar().price(), configs.getSugar().quantity());
-        this.__spoon = new Product(configs.getSpoon().name(),configs.getSpoon().price(), configs.getSpoon().quantity());
-        this.__cup = new Product(configs.getCup().name(),configs.getCup().price(), configs.getCup().quantity());
+        //------------------------------------------------------------------Load default values from configs
+        this.products.put("choco", new Product(configs.getChoco().name(), configs.getChoco().price(), configs.getChoco().quantity()));
+        this.products.put("coffe", new Product(configs.getCoffe().name(), configs.getCoffe().price(), configs.getCoffe().quantity()));
+        this.products.put("desca", new Product(configs.getDescafe().name(), configs.getDescafe().price(), configs.getDescafe().quantity()));
+        this.products.put("tea", new Product(configs.getTea().name(), configs.getTea().price(), configs.getTea().quantity()));
+
+        this.products.put("sugar", new Product(configs.getSugar().name(), configs.getSugar().price(), configs.getSugar().quantity()));
+        this.products.put("spoon", new Product(configs.getSpoon().name(), configs.getSpoon().price(), configs.getSpoon().quantity()));
+        this.products.put("cup", new Product(configs.getCup().name(), configs.getCup().price(), configs.getCup().quantity()));
         //--------------------------------------------------------------------------------------------------
     }
 
@@ -40,20 +34,8 @@ public class States {
      * @return
      */
     public Product getProduct(String product) {
-        switch (product) {
-            case "coffe":
-                return this.__coffe;
-            case "choco":
-                return this.__choco;
-            case "decaffeinated":
-                return this.__decaffeinated;
-            case "tea":
-                return this.__tea;
-            default:
-                return null;
-        }
+        return this.products.get(product);
     }
-
 
     public double onSlot() {
         return this.__onSlot;
@@ -73,11 +55,7 @@ public class States {
     }
 
 
-    public Product getCup() {
-        return this.__cup;
-    }
-
-    public Product getSpoon() {
-        return this.__spoon;
+    public Product decrementProductQuantity(String product) {
+        return this.getProduct(product).decrementQuantity();
     }
 }

@@ -1,11 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by ivoribeiro on 17-11-2016.
- */
-public class LayoutBuilder extends JFrame  {
-    private JFrame __frame;
+class LayoutBuilder extends JFrame {
+    private final JFrame __frame;
 
     public LayoutBuilder(String name, int width, int height) {
         this.__frame = new JFrame(name);

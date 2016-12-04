@@ -1,16 +1,11 @@
-import java.nio.charset.Charset;
-
-/**
- * Created by ivoribeiro on 24-11-2016.
- */
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileIO {
+class FileIO {
 
-    private String path;
+    private final String path;
 
     public FileIO(String path) {
         this.path = path;
@@ -25,7 +20,7 @@ public class FileIO {
                 file.createNewFile();
             }
 
-            FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(content);
             bw.close();

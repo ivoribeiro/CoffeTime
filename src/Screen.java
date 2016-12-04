@@ -2,13 +2,11 @@ import javax.swing.*;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-/**
- * Created by ivoribeiro on 17-11-2016.
- */
-public class Screen extends Thread {
+class Screen extends Thread {
 
-    Queue<String> __messageQueue;
-    Main __main;
+    private final Queue<ScreenMessage> __messageQueue;
+    private final Main __main;
+    private final String DEFAULT;
 
     /**
      * Wake up the current thread
@@ -28,28 +26,39 @@ public class Screen extends Thread {
         }
     }
 
-
-    public Screen(Main main) {
+    /**
+     * @param main
+     * @param defaultMessage
+     */
+    public Screen(Main main, String defaultMessage) {
         this.__main = main;
-        this.__messageQueue = new LinkedBlockingQueue<String>();
+        this.__messageQueue = new LinkedBlockingQueue<>();
+        this.DEFAULT = defaultMessage;
     }
 
-
-    public void processMessage(String message) {
-        __messageQueue.offer(message);
+    /**
+     * @param message
+     * @param time
+     */
+    public void processMessage(String message, int time) {
+        __messageQueue.offer(new ScreenMessage(message, time));
         this.wakeUp();
     }
 
-
+    /**
+     * @param screenLabel
+     */
     public void printMessages(JLabel screenLabel) {
         while (!__messageQueue.isEmpty()) {
-            screenLabel.setText(this.__messageQueue.poll());
+            ScreenMessage sm = this.__messageQueue.poll();
+            screenLabel.setText(sm.getMessage());
             try {
-                Thread.sleep(1000);
+                Thread.sleep(sm.getTime());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        screenLabel.setText(this.DEFAULT);
         this.sleep();
         this.printMessages(screenLabel);
     }
@@ -64,13 +73,16 @@ public class Screen extends Thread {
         String myname = Thread.currentThread().getName();
         LayoutBuilder layoutBuilder = new LayoutBuilder(myname, 500, 75);
         layoutBuilder.setPosition(450, 150);
-        JLabel screenLabel = layoutBuilder.label("Bebidas Quentes aos melhores preços");
+        JLabel screenLabel = layoutBuilder.label(this.DEFAULT);
         layoutBuilder.addLabel(screenLabel);
         layoutBuilder.build();
         layoutBuilder.dispose();
         return screenLabel;
     }
 
+    /**
+     *
+     */
     public void run() {
         try {
             this.__main.getLogSemaphore().acquire();
@@ -82,10 +94,10 @@ public class Screen extends Thread {
         __main.writeLogMessage("[Screen]-name settled");
         __main.writeLogMessage("[Screen]-Build GUI");
         JLabel screenLabel = this.buildUI();
-        __main.writeLogMessage("[Screen]-GUI Builded");
+        __main.writeLogMessage("[Screen]-GUI builded");
+        __main.writeLogMessage("[Screen]-Realising log semaphore");
         this.__main.getLogSemaphore().release();
         this.sleep();
         this.printMessages(screenLabel);
-
     }
 }

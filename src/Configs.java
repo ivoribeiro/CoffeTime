@@ -1,10 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-/**
- * Created by ivoribeiro on 19-11-2016.
- */
-public class Configs {
+class Configs {
 
 
     private Product __cup;

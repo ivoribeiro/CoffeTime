@@ -5,14 +5,11 @@ import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
 
-/**
- * Created by ivoribeiro on 19-11-2016.
- */
 public class Log extends Thread {
 
-    private Queue<String> __logQueue;
-    private FileIO __writer;
-    private Semaphore __logSemaphore;
+    private final Queue<String> __logQueue;
+    private final FileIO __writer;
+    private final Semaphore __logSemaphore;
 
 
     /**
@@ -34,7 +31,7 @@ public class Log extends Thread {
     }
 
     public Log(String logPath) {
-        this.__logQueue = new LinkedBlockingQueue<String>();
+        this.__logQueue = new LinkedBlockingQueue<>();
         this.__writer = new FileIO(logPath);
         this.__logSemaphore = new Semaphore(1);
 

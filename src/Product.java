@@ -1,10 +1,7 @@
-/**
- * Created by ivoribeiro on 17-11-2016.
- */
 public class Product {
 
-    private String __name;
-    private double __price;
+    private final String __name;
+    private final double __price;
     private int __quantity;
 
     public Product(String name, double price, int quantity) {
@@ -25,5 +22,11 @@ public class Product {
         return this.__name;
     }
 
-
+    public Product decrementQuantity() {
+        if (this.__quantity == 0) return null;
+        else {
+            this.__quantity--;
+            return this;
+        }
+    }
 }

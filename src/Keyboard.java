@@ -2,17 +2,14 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by ivoribeiro on 17-11-2016.
- */
-public class Keyboard extends Thread implements ActionListener {
+class Keyboard extends Thread implements ActionListener {
 
-    JButton __chocBtn;
-    JButton __descaBtn;
-    JButton __teaBtn;
-    JButton __coffeBtn;
+    private JButton __chocBtn;
+    private JButton __descaBtn;
+    private JButton __teaBtn;
+    private JButton __coffeBtn;
 
-    Main __main;
+    private final Main __main;
 
 
     public Keyboard(Main main) {
@@ -77,7 +74,7 @@ public class Keyboard extends Thread implements ActionListener {
         } else if (actionEvent.getSource() == __teaBtn) {
             __main.processDrink("tea");
         } else if (actionEvent.getSource() == __descaBtn) {
-            __main.processDrink("decaffeinated");
+            __main.processDrink("desca");
         }
 
 

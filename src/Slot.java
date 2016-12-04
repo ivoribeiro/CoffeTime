@@ -2,19 +2,16 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by ivoribeiro on 17-11-2016.
- */
-public class Slot extends Thread implements ActionListener {
+class Slot extends Thread implements ActionListener {
 
-    Main __main;
+    private final Main __main;
 
-    JButton __5Btn;
-    JButton __10Btn;
-    JButton __20Btn;
-    JButton __50Btn;
-    JButton __1Btn;
-    JButton __2Btn;
+    private JButton __5Btn;
+    private JButton __10Btn;
+    private JButton __20Btn;
+    private JButton __50Btn;
+    private JButton __1Btn;
+    private JButton __2Btn;
 
     public Slot(Main main) {
         this.__main = main;
