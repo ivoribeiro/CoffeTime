@@ -61,7 +61,7 @@ public class Main extends Thread implements Contract {
      * @param money
      */
     public void processSlot(double money) {
-        this.printScreenMessage("Processing " + money + " to slot ....", 1000);
+        this.printScreenMessage("Processing " + money +"€ to slot ....", 1000);
         this.__states.addToSlot(money);
         this.printScreenMessage("Credit: " + this.formatDouble(this.__states.onSlot()), 1000);
     }
@@ -85,7 +85,7 @@ public class Main extends Thread implements Contract {
             //reset the slot state value
             this.__states.resetSlot();
         } else
-            this.printScreenMessage("Sem crédito suficiente, preço:" + this.formatDouble(this.__states.getProduct(drink).price()), 1000);
+            this.printScreenMessage("Sem crédito suficiente, preço:" + this.formatDouble(this.__states.getProduct(drink).price())+"€", 1000);
     }
 
     /**
@@ -101,6 +101,14 @@ public class Main extends Thread implements Contract {
      */
     public void printScreenMessage(String message, int time) {
         this.__screen.processMessage(message, time);
+    }
+
+    @Override
+    public void resetSlot() {
+        if (this.__states.onSlot() > 0) {
+            this.printScreenMessage("A devolver " + this.__states.onSlot()+"€", 1000);
+            this.__states.resetSlot();
+        }
     }
 
     /**

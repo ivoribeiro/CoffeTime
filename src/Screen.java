@@ -1,12 +1,15 @@
 import javax.swing.*;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.Semaphore;
 
 class Screen extends Thread {
 
     private final Queue<ScreenMessage> __messageQueue;
     private final Main __main;
     private final String DEFAULT;
+    private final Semaphore __screenSemaphore;
+
 
     /**
      * Wake up the current thread
@@ -34,6 +37,8 @@ class Screen extends Thread {
         this.__main = main;
         this.__messageQueue = new LinkedBlockingQueue<>();
         this.DEFAULT = defaultMessage;
+        this.__screenSemaphore = new Semaphore(1);
+
     }
 
     /**
@@ -49,6 +54,11 @@ class Screen extends Thread {
      * @param screenLabel
      */
     public void printMessages(JLabel screenLabel) {
+        try {
+            this.__screenSemaphore.acquire(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         while (!__messageQueue.isEmpty()) {
             ScreenMessage sm = this.__messageQueue.poll();
             screenLabel.setText(sm.getMessage());
@@ -59,6 +69,7 @@ class Screen extends Thread {
             }
         }
         screenLabel.setText(this.DEFAULT);
+        this.__screenSemaphore.release();
         this.sleep();
         this.printMessages(screenLabel);
     }

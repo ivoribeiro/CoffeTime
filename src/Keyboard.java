@@ -8,6 +8,7 @@ class Keyboard extends Thread implements ActionListener {
     private JButton __descaBtn;
     private JButton __teaBtn;
     private JButton __coffeBtn;
+    private JButton __resetBtn;
 
     private final Main __main;
 
@@ -26,6 +27,7 @@ class Keyboard extends Thread implements ActionListener {
         this.__coffeBtn = layoutBuilder.button("Café");
         this.__descaBtn = layoutBuilder.button("Descafeinado");
         this.__teaBtn = layoutBuilder.button("Chá");
+        this.__resetBtn = layoutBuilder.button("Devolução");
         //--End
 
         //---Button listing
@@ -33,6 +35,7 @@ class Keyboard extends Thread implements ActionListener {
         __coffeBtn.addActionListener(this);
         __teaBtn.addActionListener(this);
         __descaBtn.addActionListener(this);
+        __resetBtn.addActionListener(this);
         //--End
 
         //---Add buttons to frame
@@ -40,6 +43,7 @@ class Keyboard extends Thread implements ActionListener {
         layoutBuilder.addButton(__descaBtn);
         layoutBuilder.addButton(__teaBtn);
         layoutBuilder.addButton(__coffeBtn);
+        layoutBuilder.addButton(__resetBtn);
         //--End
 
         layoutBuilder.setPosition(450, 250);
@@ -75,6 +79,8 @@ class Keyboard extends Thread implements ActionListener {
             __main.processDrink("tea");
         } else if (actionEvent.getSource() == __descaBtn) {
             __main.processDrink("desca");
+        } else if (actionEvent.getSource() == __resetBtn) {
+            __main.resetSlot();
         }
 
 

@@ -4,22 +4,31 @@ interface Contract {
      *
      * @param drink
      */
-     void processDrink(String drink);
+    void processDrink(String drink);
 
     /**
      * Method to threads Add money to slot state
      *
      * @param money
      */
-     void processSlot(double money);
+    void processSlot(double money);
 
     /**
      * Method to threads write on log
      *
      * @param logMessage
      */
-     void writeLogMessage(String logMessage);
+    void writeLogMessage(String logMessage);
 
-     void printScreenMessage(String message, int time);
+    /**
+     * @param message
+     * @param time
+     */
+    void printScreenMessage(String message, int time);
+
+    /**
+     *
+     */
+    void resetSlot();
 
 }
