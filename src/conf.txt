@@ -3,6 +3,6 @@ coffe;0.40;1;1
 choco;0.35;50
 desca;0.40;1;1
 tea;0.35;50
-cup;0;10
-spoon;0;10
-sugar;0;10
+cup;0;15
+spoon;0;15
+sugar;0;15

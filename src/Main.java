@@ -244,6 +244,8 @@ public class Main extends Thread implements Contract {
             else {
                 Grinder grinder = new Grinder(this, drink);
                 grinder.start();
+                product.setQuantity(10);
+                product.decrementGrain();
             }
 
         }
