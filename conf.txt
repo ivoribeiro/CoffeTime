@@ -1,8 +1,0 @@
-logPath=.log
-coffe;0.40;2
-choco;0.35;50
-desca;0.40;100
-tea;0.35;50
-cup;0;2
-spoon;0;2
-sugar;0;2

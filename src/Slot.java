@@ -81,6 +81,7 @@ class Slot extends Thread implements ActionListener {
     public void run() {
         try {
             this.__main.getLogSemaphore().acquire();
+            __main.writeLogMessage("[Slot]-Log semaphore acquired");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -91,6 +92,16 @@ class Slot extends Thread implements ActionListener {
         this.buildUI();
         __main.writeLogMessage("[Slot]-GUI builded");
         this.__main.getLogSemaphore().release();
+        __main.writeLogMessage("[Slot]-Log semaphore released");
         //f.dispose();
+    }
+
+    /**
+     * @param exchange
+     */
+    public void giveExchange(String exchange) {
+        __main.writeLogMessage("[Slot]-Sending exchange message to screen");
+        this.__main.printScreenMessage("Troco:" + exchange, 1000);
+        __main.writeLogMessage("[Slot]-Exchange message sent");
     }
 }
