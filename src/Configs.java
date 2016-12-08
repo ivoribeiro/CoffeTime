@@ -16,7 +16,7 @@ class Configs {
 
     public Configs() {
 
-        String configFile = "src/conf.txt";
+        String configFile = "conf.txt";
         String line;
         String configSplitBy = "=";
         String productSplitBy = ";";
